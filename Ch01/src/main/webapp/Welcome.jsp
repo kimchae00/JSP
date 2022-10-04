@@ -9,5 +9,7 @@
 	<body>
 		<h3>Welcome JSP!</h3>
 		<a href="./Hello.jsp">Hello</a>
+		<a href="./Welcome.jsp">Welcome</a>
+		<a href="./Greeting.jsp">Greeting</a>
 	</body>
 </html>
