@@ -1,4 +1,4 @@
-<%@page import="Common.Person"%>
+<%@page import="common.Person"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	pageContext.setAttribute("pageInteger", 1000);
@@ -14,8 +14,8 @@
 	<body>
 		<h2>page 영역의 속성값 읽기</h2>
 		<%
-		int pInteger = (Integer)(pageContext.getAttributesScope("pageInteger"));
-		String pString = pageContext.getAttribute("PageString").toString();
+		int pInteger = (Integer)(pageContext.getAttribute("pageInteger"));
+		String pString = pageContext.getAttribute("pageString").toString();
 		Person pPerson = (Person)(pageContext.getAttribute("pagePerson"));
 		%>
 		<ul>
