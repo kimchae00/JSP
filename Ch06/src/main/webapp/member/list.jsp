@@ -17,14 +17,9 @@
 	List<MemberBean> members = new ArrayList<>();
 	
 	try{
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		
 		Connection conn = DriverManager.getConnection(host, user, pass);
-		
 		Statement stmt = conn.createStatement();
-		
-		String sql = "SELECT * FROM `member`";
-		ResultSet rs = stmt.executeQuery(sql);
+		ResultSet rs = stmt.executeQuery("SELECT * FROM `member`");
 		
 		while(rs.next()){
 			MemberBean mb = new MemberBean();

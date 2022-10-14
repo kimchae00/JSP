@@ -1,27 +1,29 @@
 <%@page import="bean.StudentBean"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
-<%@page import="config.DB"%>
+<%@page import="config.JDBC"%>
 <%@page import="java.sql.Connection"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%
+
+
 	request.setCharacterEncoding("utf-8");
 	String stdNo = request.getParameter("stdNo");
 	
 	StudentBean sb = null;
 	
 	try{
-		Connection conn = DB.getInstance().getConnection();
+		Connection conn = JDBC.getInstance().getConnection();
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT * FROM `member`");
 		
 		if(rs.next()){
-			sb = new StudentBean();
-			sb.setStdNo(rs.getString(1));
-			sb.setStdName(rs.getString(2));
-			sb.setStdHp(rs.getString(3));
-			sb.setStdYear(rs.getInt(4));
-			sb.setStdAddress(rs.getString(5));
+	sb = new StudentBean();
+	sb.setStdNo(rs.getString(1));
+	sb.setStdName(rs.getString(2));
+	sb.setStdHp(rs.getString(3));
+	sb.setStdYear(rs.getInt(4));
+	sb.setStdAddress(rs.getString(5));
 		}
 		
 		rs.close();
