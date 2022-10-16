@@ -5,18 +5,16 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
-<%@page import="config.JDBC"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-List<User5Bean> users = null;	
+List<User5Bean> users = new ArrayList<>();	
 
 	try{
-		Connection conn = DBCP.getConnection("dbcp_java1db");
+		Connection conn = DBCP.getConnection("dbcp_userdb");
 		
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT * FROM `user5`");
 		
-		users = new ArrayList<>();
 		
 		while(rs.next()){
 			User5Bean ub = new User5Bean();

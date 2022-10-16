@@ -66,8 +66,8 @@
 				<td><%= cb.getAddr() %></td>
 				<td><%= cb.getRdate() %></td>
 				<td>
-					<a href="./modify.jsp?uid=<%= cb.getCustid() %>">수정</a>
-					<a href="./delete.jsp?uid=<%= cb.getCustid() %>">삭제</a>
+					<a href="./modify.jsp?custid=<%= cb.getCustid() %>">수정</a>
+					<a href="./delete.jsp?custid=<%= cb.getCustid() %>">삭제</a>
 				</td>
 			</tr>
 			<% } %>		

@@ -15,7 +15,7 @@
 	String hp   = request.getParameter("hp");
 
 	try{
-		Connection conn = DBCP.getConnection("dbcp_java1db");
+		Connection conn = DBCP.getConnection("dbcp_useredb");
 		
 		String sql = "update `user5` set `name`=?, `birth`=?, `gender`=?, `age`=?, `addr`=?, `hp`=?";
 			   sql += "where `uid`=?";

@@ -1,21 +1,19 @@
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="config.DBCP"%>
-<%@page import="bean.User5Bean"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
-	String uid = request.getParameter("uid");
+	String custid = request.getParameter("custid");
 	
 	try{
 		
-		Connection conn = DBCP.getConnection("dbcp_userdb");
+		Connection conn = DBCP.getConnection("dbcp_java1_shop");
 		
 		String sql = "DELETE FROM `user5` WHERE `uid`=?";
 	 	PreparedStatement psmt = conn.prepareStatement(sql);
-		psmt.setString(1, uid);
+		psmt.setString(1, custid);
 		// 4단계
 		psmt.executeUpdate();
 		
