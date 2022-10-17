@@ -11,7 +11,7 @@
 	
 	try{
 		
-		Connection conn = DBCP.getConnection("dbcp_userdb");
+		Connection conn = DBCP.getConnection("dbcp_java1db");
 		
 		String sql = "DELETE FROM `user5` WHERE `uid`=?";
 	 	PreparedStatement psmt = conn.prepareStatement(sql);

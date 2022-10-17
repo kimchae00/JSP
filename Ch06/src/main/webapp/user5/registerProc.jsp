@@ -24,7 +24,7 @@
 		Context ctx = (Context)initCtx.lookup("java:comp/env");
 		
 		// 2단계 - 커넥션 풀에서 커넥션 가져오기
-		DataSource ds = (DataSource) ctx.lookup("dbcp_userdb");
+		DataSource ds = (DataSource) ctx.lookup("dbcp_java1db");
 		Connection conn = ds.getConnection();
 		
 		// 3단계

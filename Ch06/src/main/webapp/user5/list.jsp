@@ -10,7 +10,7 @@
 List<User5Bean> users = new ArrayList<>();	
 
 	try{
-		Connection conn = DBCP.getConnection("dbcp_userdb");
+		Connection conn = DBCP.getConnection("dbcp_java1db");
 		
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT * FROM `user5`");

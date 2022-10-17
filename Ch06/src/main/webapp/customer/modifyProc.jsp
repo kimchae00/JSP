@@ -1,4 +1,4 @@
-<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Statement"%>
 <%@page import="config.DBCP"%>
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -16,19 +16,13 @@
 	try{
 		Connection conn = DBCP.getConnection("dbcp_java1_shop");
 		
+		Statement stmt = conn.createStatement();
 		String sql = "update `customer` set `name`=?, `hp`=?, `addr`=?, `rdate`=?";
 			   sql += "where `custid`=?";
-			   
-	 	PreparedStatement psmt = conn.prepareStatement(sql);
-	 	psmt.setString(1, custid);
-		psmt.setString(2, name);
-		psmt.setString(3, hp);
-		psmt.setString(4, addr);
-		psmt.setString(5, rdate);
 		
-	 	psmt.executeUpdate();
+	 	stmt.executeUpdate(sql);
 	 	
-	 	psmt.close();
+	 	stmt.close();
 	 	conn.close();
 		
 	}catch(Exception e){

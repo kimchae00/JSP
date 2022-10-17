@@ -11,7 +11,7 @@
 		
 		Connection conn = DBCP.getConnection("dbcp_java1_shop");
 		
-		String sql = "DELETE FROM `user5` WHERE `uid`=?";
+		String sql = "DELETE FROM `customer` WHERE `custid`=?";
 	 	PreparedStatement psmt = conn.prepareStatement(sql);
 		psmt.setString(1, custid);
 		// 4단계
