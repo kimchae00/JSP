@@ -1,9 +1,10 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>글보기</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="/JBoard1/css/style.css">
 </head>
 <body>
     <div id="wrapper">
@@ -32,8 +33,8 @@
             </table>
             <div>
                 <a href="#" class="btn btnRemove">삭제</a>
-                <a href="./modify.html" class="btn btnModify">수정</a>
-                <a href="./list.html" class="btn btnList">목록</a>
+                <a href="/JBoard1/modify.jsp" class="btn btnModify">수정</a>
+                <a href="/JBoard1/list.jsp" class="btn btnList">목록</a>
             </div>
             <!-- 댓글 목록 -->
             <section class="commentList">

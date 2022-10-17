@@ -1,9 +1,10 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>약관</title>
-    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="/JBoard1/css/style.css"/>
 </head>
 <body> 
     <div id="wrapper">
@@ -32,8 +33,8 @@
         </table>
 
         <p>
-            <a href="./login.html" class="cancel">취소</a>
-            <a href="./register.html" class="next">다음</a>
+            <a href="/JBoard1/user/login.jsp" class="cancel">취소</a>
+            <a href="/JBoard1/user/register.jsp" class="next">다음</a>
         </p>
     </main>    
     <footer>

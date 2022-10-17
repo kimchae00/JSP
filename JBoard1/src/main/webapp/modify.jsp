@@ -1,9 +1,10 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>글쓰기</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <title>글수정</title>
+    <link rel="stylesheet" href="/JBoard1/css/style.css">
 </head>
 <body>
     <div id="wrapper">
@@ -14,11 +15,11 @@
                 <a href="#" class="logout">[로그아웃]</a>
             </p>
         </header>
-        <main id="board" class="write">
+        <main id="board" class="modify">
 
             <form action="#">
                 <table border="0">
-                    <caption>글쓰기</caption>
+                    <caption>글수정</caption>
                     <tr>
                         <th>제목</th>
                         <td>
@@ -40,8 +41,8 @@
                 </table>
 
                 <div>
-                    <a href="./list.html" class="btn btnCancel">취소</a>
-                    <input type="submit" value="작성완료" class="btn btnComplete"/>
+                    <a href="/JBoard1/view.jsp" class="btn btnCancel">취소</a>
+                    <input type="submit" value="수정완료" class="btn btnComplete"/>
                 </div>
             </form>
         </main>    
