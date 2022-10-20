@@ -44,27 +44,27 @@
 		<a href="../2_DBCPTest.jsp">처음으로</a>
 		<a href="./list.jsp">customer 목록</a>
 		
-		<form action="./modifyProc.jsp">
+		<form action="./modifyProc.jsp" method="get">
 			<table border="1">
 				<tr>
 					<td>아이디</td>
-					<td><input type="text" name="custid" value=""/></td>
+					<td><input type="text" name="custid" value="<%= cb.getCustid() %>" readonly="readonly"/></td>
 				</tr>
 				<tr>
 					<td>이름</td>
-					<td><input type="text" name="name" placeholder="이름 입력"/></td>
+					<td><input type="text" name="name" value="<%= cb.getName() %>"/></td>
 				</tr>
 				<tr>
 					<td>휴대폰</td>
-					<td><input type="text" name="hp" placeholder="휴대폰 입력"/></td>
+					<td><input type="text" name="hp" value="<%= cb.getHp() %>"/></td>
 				</tr>
 				<tr>
 					<td>주소</td>
-					<td><input type="text" name="addr" placeholder="주소 입력"/></td>
+					<td><input type="text" name="addr" value="<%= cb.getAddr() %>"/></td>
 				</tr>
 				<tr>
 					<td>입사일</td>
-					<td><input type="date" name="rdate"/></td>
+					<td><input type="date" name="rdate" value="<%= cb.getRdate() %>"/></td>
 				</tr>
 				<tr>
 					<td colspan="2" align="right"></td>
