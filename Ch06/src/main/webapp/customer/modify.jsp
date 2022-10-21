@@ -1,6 +1,6 @@
+<%@page import="java.sql.PreparedStatement"%>
 <%@page import="bean.CustomerBean"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
 <%@page import="config.DBCP"%>
 <%@page import="java.sql.Connection"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
@@ -12,8 +12,12 @@
 	
 	try{
 		Connection conn = DBCP.getConnection("dbcp_java1_shop");
-		Statement stmt = conn.createStatement();
-		ResultSet rs  = stmt.executeQuery("select * from `customer` where `custid`=?");
+		
+		String sql = "select * from `customer` where `custid`=?";
+		
+		PreparedStatement psmt = conn.prepareStatement(sql);
+		psmt.setString(1, custid);
+		ResultSet rs  = psmt.executeQuery();
 		
 		if(rs.next()){
 			cb = new CustomerBean();
@@ -25,7 +29,7 @@
 		}
 		
 		rs.close();
-		stmt.close();
+		psmt.close();
 		conn.close();
 		
 	}catch(Exception e){

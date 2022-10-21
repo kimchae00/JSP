@@ -16,7 +16,7 @@
 	</head>
 	<body>
 		<h2>로그인 페이지</h2>
-		<form action="IdSaveSuccess.jsp" method="post">
+		<form action="IdSaveProcess.jsp" method="post">
 			아이디 : <input type="text" name="user_id" value="<%= loginId %>" />
 				<input type="checkbox" name="save_check" value="Y" <%= cookieCheck %> />
 				아이디 저장하기
