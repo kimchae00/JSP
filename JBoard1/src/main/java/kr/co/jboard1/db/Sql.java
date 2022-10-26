@@ -22,5 +22,19 @@ public class Sql {
 	public static final String SELECT_TERMS = "select * from `board_terms`";
 	
 	// board
-
+	public static final String INSERT_ARTICLE = "insert into `board_article` set "
+												+ "`title`=?,"
+												+ "`content`=?,"
+												+ "`file`=?,"
+												+ "`uid`=?,"
+												+ "`regip`=?,"
+												+ "`rdate`=now()";
+			
+	public static final String INSERT_FILE = "insert into `board_file` set "
+											+ "`parent`=?,"
+											+ "`newName`=?,"
+											+ "`oriName`=?,"
+											+ "`rdate`=now()";
+	
+	public static final String SELECT_MAX_NO = "select max(`no`) from `board_article`";
 }
