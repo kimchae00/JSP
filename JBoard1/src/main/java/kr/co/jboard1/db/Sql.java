@@ -44,4 +44,15 @@ public class Sql {
 												  + "ORDER BY `no` desc "
 												  + "LIMIT ?, 10";
 	
+	public static final String SELECT_ARTICLE = "SELECT a.*, b.`fno`, b.`oriName`, b.`download` "
+													+ "FROM `board_article` AS a "
+													+ "LEFT JOIN `board_file` AS b "
+													+ "ON	a.`no` = b.`parent` "
+													+ "WHERE `no`=?";
+	
+	public static final String SELECT_FILE = "SELECT * FROM `board_file` WHERE `fno`=?";
+	public static final String UPDATE_FILE_DOWNLOAD = "update `board_file` set `download` = `download` + 1 where `fno`=?";
+	
+	public static final String UPDATE_ARTICLE_HIT = "UPDATE `board_article` SET `hit`= `hit` + 1 where `no`=?";
+	
 }
