@@ -21,7 +21,103 @@ public class ArticleDAO {
 	private ArticleDAO() {}
 
 	// 기본 CRUD
-	public void insertArticle() {}
+	public int insertArticle(ArticleBean ab) {
+		int parent = 0;
+		try{
+			Connection conn = DBCP.getConnection();
+			
+			// 트랜잭션 시작
+			conn.setAutoCommit(false);
+			
+			Statement stmt = conn.createStatement();
+			PreparedStatement psmt = conn.prepareStatement(Sql.INSERT_ARTICLE);
+			
+			psmt.setString(1, ab.getTitle());
+			psmt.setString(2, ab.getContent());
+			psmt.setInt(3, ab.getFname() == null ? 0 : 1);
+			psmt.setString(4, ab.getUid());
+			psmt.setString(5, ab.getRegip());
+			
+			psmt.executeUpdate(); // INSERT
+			ResultSet rs = stmt.executeQuery(Sql.SELECT_MAX_NO); // SELECT
+			
+			conn.commit(); // 작업확정
+			
+			if(rs.next()){
+				parent = rs.getInt(1);
+			}
+			
+			rs.close();
+			stmt.close();
+			psmt.close();
+			conn.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return parent;
+	}
+	
+	public void insertFile(int parent, String newName, String fname) {
+		try{
+			Connection conn = DBCP.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.INSERT_FILE);
+			psmt.setInt(1, parent);
+			psmt.setString(2, newName);
+			psmt.setString(3, fname);
+			
+			psmt.executeUpdate();
+			psmt.close();
+			conn.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public ArticleBean insertComment(ArticleBean comment) {
+		
+		ArticleBean ab = null;
+		
+		try{
+			Connection conn = DBCP.getConnection();
+			
+			// 트랜잭션 시작
+			conn.setAutoCommit(false);
+			
+			PreparedStatement psmt = conn.prepareStatement(Sql.INSERT_COMMENT);
+			Statement stmt = conn.createStatement();
+			
+			psmt.setInt(1, comment.getParent());
+			psmt.setString(2, comment.getContent());
+			psmt.setString(3, comment.getUid());
+			psmt.setString(4, comment.getRegip());
+			psmt.executeUpdate();
+			ResultSet rs = stmt.executeQuery(Sql.SELECT_COMMENT_LATEST);
+			
+			// 작업 확정
+			conn.commit();
+			
+			if(rs.next()) {
+				ab = new ArticleBean();
+				ab.setNo(rs.getInt(1));
+				ab.setParent(rs.getInt(2));
+				ab.setContent(rs.getString(6));
+				ab.setRdate(rs.getString(11).substring(2, 10));
+				ab.setNick(rs.getString(12));
+			}
+
+			rs.close();
+			stmt.close();
+			psmt.close();
+			conn.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return ab;
+	}
 	
 	public ArticleBean selectArticle(String no) {
 		
@@ -131,19 +227,42 @@ public class ArticleDAO {
 		return fb;
 	}
 	
-	public void updateFileDownload(String fno) {
-		try{
+	public List<ArticleBean> selectComments(String parent) {
+		
+		List<ArticleBean> comments = new ArrayList<>();
+		
+		try {
 			Connection conn = DBCP.getConnection();
-			PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_FILE_DOWNLOAD);
-			psmt.setString(1, fno);
-			psmt.executeUpdate();
+			PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_COMMENTS);
+			psmt.setString(1, parent);
+			ResultSet rs = psmt.executeQuery();
 			
+			while(rs.next()) {
+				ArticleBean comment = new ArticleBean();
+				comment.setNo(rs.getInt(1));
+				comment.setParent(rs.getInt(2));
+				comment.setComment(rs.getInt(3));
+				comment.setCate(rs.getString(4));
+				comment.setTitle(rs.getString(5));
+				comment.setContent(rs.getString(6));
+				comment.setFile(rs.getInt(7));
+				comment.setHit(rs.getInt(8));
+				comment.setUid(rs.getString(9));
+				comment.setRegip(rs.getString(10));
+				comment.setRdate(rs.getString(11).substring(2, 10));
+				comment.setNick(rs.getString(12));
+				
+				comments.add(comment);
+			}
+			
+			rs.close();
 			psmt.close();
 			conn.close();
 			
-		}catch(Exception e){
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		return comments;
 	}
 	
 	public void updateArticle() {}
@@ -188,4 +307,20 @@ public class ArticleDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public void updateFileDownload(String fno) {
+		try{
+			Connection conn = DBCP.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_FILE_DOWNLOAD);
+			psmt.setString(1, fno);
+			psmt.executeUpdate();
+			
+			psmt.close();
+			conn.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 }
