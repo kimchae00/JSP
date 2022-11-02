@@ -323,4 +323,43 @@ public class ArticleDAO {
 		}
 	}
 	
+	public int updateComment(String no, String content) {
+		
+		int result = 0;
+		
+		try{
+			Connection conn = DBCP.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_COMMENT);
+			psmt.setString(1, content);
+			psmt.setString(2, no);
+			
+			result = psmt.executeUpdate();
+			psmt.close();
+			conn.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public int removeComment(String no) {
+		
+		int result = 0;
+		
+		try {
+			Connection conn = DBCP.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.REMOVE_COMMENT);
+			psmt.setString(1, no);
+			
+			result = psmt.executeUpdate();
+			psmt.close();
+			conn.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
