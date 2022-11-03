@@ -1,3 +1,5 @@
+<%@page import="kr.co.jboard1.bean.UserBean"%>
+<%@page import="kr.co.jboard1.dao.UserDAO"%>
 <%@page import="kr.co.jboard1.db.Sql"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="kr.co.jboard1.db.DBCP"%>
@@ -7,7 +9,7 @@
 	request.setCharacterEncoding("utf-8");
 
 	String uid   = request.getParameter("uid");
-	String pass1 = request.getParameter("pass1");
+	String pass = request.getParameter("pass");
 	String name  = request.getParameter("name");
 	String nick  = request.getParameter("nick");
 	String email = request.getParameter("email");
@@ -17,29 +19,19 @@
 	String addr2 = request.getParameter("addr2");
 	String regip = request.getRemoteAddr(); // 클라이언트 IP 주소
 
-	try{
-		
-		Connection conn = DBCP.getConnection();
-		PreparedStatement psmt = conn.prepareStatement(Sql.INSERT_USER);
-		psmt.setString(1, uid);
-		psmt.setString(2, pass1);
-		psmt.setString(3, name);
-		psmt.setString(4, nick);
-		psmt.setString(5, email);
-		psmt.setString(6, hp);
-		psmt.setString(7, zip);
-		psmt.setString(8, addr1);
-		psmt.setString(9, addr2);
-		psmt.setString(10, regip);
-		
-		psmt.executeUpdate();
-		
-		psmt.close();
-		conn.close();
-		
-	}catch(Exception e){
-		e.printStackTrace();
-	}
+	UserBean ub = new UserBean();
+	ub.setUid(uid);
+	ub.setPass(pass);
+	ub.setName(name);
+	ub.setNick(nick);
+	ub.setEmail(email);
+	ub.setHp(hp);
+	ub.setZip(zip);
+	ub.setAddr1(addr1);
+	ub.setAddr2(addr2);
+	ub.setRegip(regip);
+	
+	UserDAO.getInstance().insertUser(ub);
 	
 	response.sendRedirect("/JBoard1/user/login.jsp");
 %>
