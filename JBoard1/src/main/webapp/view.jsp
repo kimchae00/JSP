@@ -29,7 +29,7 @@
 
 	$(document).ready(function(){
 		
-		// 삭제하기
+		// 댓글 삭제하기
 		$(document).on('click', '.remove', function(e){
 			e.preventDefault();
 			
@@ -82,7 +82,6 @@
 						"no": no,
 						"content": content
 				};
-				
 				$.ajax({
 					url: '/JBoard1/proc/commentModifyProc.jsp',
 					type: 'post',
@@ -96,7 +95,6 @@
 					}
 				});
 			}
-			
 		});
 		
 		// 댓글 쓰기
@@ -163,8 +161,10 @@
           </tr>
       </table>
       <div>
-          <a href="#" class="btn btnRemove">삭제</a>
-          <a href="/JBoard1/modify.jsp" class="btn btnModify">수정</a>
+      <% if(sessUser.getUid().equals(ab.getUid())){ %>
+          <a href="/JBoard1/proc/deleteProc.jsp?no=<%= ab.getNo() %>&pg=<%= pg %>" class="btn btnRemove">삭제</a>
+          <a href="/JBoard1/modify.jsp?no=<%= ab.getNo() %>&pg=<%= pg %>" class="btn btnModify">수정</a>
+          <% } %>
           <a href="/JBoard1/list.jsp?pg=<%= pg %>" class="btn btnList">목록</a>
       </div>
       
@@ -177,10 +177,12 @@
               <span class="nick"><%= comment.getNick() %></span>
               <span class="date"><%= comment.getRdate() %></span>
               <p class="content"><%= comment.getContent() %></p>
+              <% if(sessUser.getUid().equals(comment.getUid())){ %>
               <div>
                   <a href="#" class="remove" data-no="<%= comment.getNo() %>">삭제</a>
                   <a href="#" class="modify" data-no="<%= comment.getNo() %>">수정</a>
               </div>
+              <% } %>
           </article>
           <% } %>
           

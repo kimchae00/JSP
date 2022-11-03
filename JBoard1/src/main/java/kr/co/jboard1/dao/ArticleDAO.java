@@ -46,7 +46,6 @@ public class ArticleDAO {
 			if(rs.next()){
 				parent = rs.getInt(1);
 			}
-			
 			rs.close();
 			stmt.close();
 			psmt.close();
@@ -254,7 +253,6 @@ public class ArticleDAO {
 				
 				comments.add(comment);
 			}
-			
 			rs.close();
 			psmt.close();
 			conn.close();
@@ -265,9 +263,74 @@ public class ArticleDAO {
 		return comments;
 	}
 	
-	public void updateArticle() {}
-	public void deleteArticle() {}
+	public void updateArticle(String title, String content, String no) {
+		
+		try{
+			Connection conn = DBCP.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_ARTICLE);
+			psmt.setString(1, title);
+			psmt.setString(2, content);
+			psmt.setString(3, no);
+			psmt.executeUpdate();
+			
+			psmt.close();
+			conn.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void deleteArticle(String no) {
+		
+		try {
+			
+			Connection conn = DBCP.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.DELETE_ARTICLE);
+			psmt.setString(1, no);
+			psmt.setString(2, no);
+			
+			psmt.executeUpdate();
+			psmt.close();
+			conn.close();
+			
+		}catch(Exception e) {
+			
+		}
+	}
 	
+	public String deleteFile(String parent) {
+		
+		String newName = null;
+		
+		try {
+			Connection conn = DBCP.getConnection();
+			
+			conn.setAutoCommit(false);
+			
+			PreparedStatement psmt1 = conn.prepareStatement(Sql.SELECT_FILE_WITH_PARENT); 
+			PreparedStatement psmt2 = conn.prepareStatement(Sql.DELETE_FILE);
+			psmt1.setString(1, parent);
+			psmt2.setString(1, parent);
+			
+			ResultSet rs = psmt1.executeQuery();
+			psmt2.executeUpdate();
+			
+			conn.commit();
+			
+			if(rs.next()) {
+				newName = rs.getString(3);
+			}
+			
+			rs.close();
+			psmt1.close();
+			psmt2.close();
+			conn.close();
+			
+		}catch(Exception e) {
+			
+		}
+		return newName;
+	}
 	// 전체 게시물 카운트
 	public int selectCountTotal() {
 		
