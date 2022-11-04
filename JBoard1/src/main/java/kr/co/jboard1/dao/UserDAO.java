@@ -4,11 +4,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import kr.co.jboard1.bean.UserBean;
 import kr.co.jboard1.db.DBCP;
 import kr.co.jboard1.db.Sql;
 
 public class UserDAO {
+	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	private static UserDAO instatnce = new UserDAO();
 	public static UserDAO getInstance() {
 		return instatnce;
@@ -19,7 +25,7 @@ public class UserDAO {
 	public void insertUser(UserBean ub) {
 		
 		try{
-			
+			logger.info("insertUser start...");
 			Connection conn = DBCP.getConnection();
 			PreparedStatement psmt = conn.prepareStatement(Sql.INSERT_USER);
 			psmt.setString(1, ub.getUid());
@@ -40,6 +46,7 @@ public class UserDAO {
 			
 		}catch(Exception e){
 			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 	}
 	
@@ -48,6 +55,7 @@ public class UserDAO {
 		UserBean ub = null;
 		
 		try{
+			logger.info("selectUser start...");
 			Connection conn = DBCP.getConnection();
 			PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_USER);
 			psmt.setString(1, uid);
@@ -77,6 +85,7 @@ public class UserDAO {
 			
 		}catch(Exception e){
 			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		return ub;
 	}
