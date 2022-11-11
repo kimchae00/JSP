@@ -16,8 +16,8 @@
 	try{
 		Connection conn = DBCP.getConnection();
 		String sql = "insert into `lecture` (`lecNo`, `lecName`, `lecCredit`, `lecTime`, `lecClass`)";
-			   sql += "values (?, ?, ?, ?, ?)";
-			   
+	  			 sql += "values (?, ?, ?, ?, ?)";
+	   
 		PreparedStatement psmt = conn.prepareStatement(sql);
 		psmt.setString(1, lecNo);
 		psmt.setString(2, lecName);

@@ -16,8 +16,8 @@
 		Connection conn = DBCP.getConnection();
 		
 		String sql = "SELECT a.*, b.`stdName`, c.`lecName` FROM `register` AS a "
-					+"JOIN `student` AS b ON a.`regStdNo` = b.`stdNo` "
-					+"JOIN `lecture` AS c ON a.`regLecNo` = c.`lecNo`";
+			+"JOIN `student` AS b ON a.`regStdNo` = b.`stdNo` "
+			+"JOIN `lecture` AS c ON a.`regLecNo` = c.`lecNo`";
 		PreparedStatement psmt = conn.prepareStatement(sql);
 		
 		ResultSet rs = psmt.executeQuery();
@@ -34,7 +34,7 @@
 			rb.setLecName(rs.getString(8));
 			
 			registers.add(rb);
-		}
+				}
 		
 		rs.close();
 		psmt.close();

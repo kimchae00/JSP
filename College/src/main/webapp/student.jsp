@@ -18,14 +18,14 @@
 		ResultSet rs = stmt.executeQuery("SELECT * FROM `student`");
 		
 		while(rs.next()){
-			StudentBean sb = new StudentBean();
-			sb.setStdNo(rs.getString(1));
-			sb.setStdName(rs.getString(2));
-			sb.setStdHp(rs.getString(3));
-			sb.setStdYear(rs.getInt(4));
-			sb.setStdAddress(rs.getString(5));
-			
-			students.add(sb);
+	StudentBean sb = new StudentBean();
+	sb.setStdNo(rs.getString(1));
+	sb.setStdName(rs.getString(2));
+	sb.setStdHp(rs.getString(3));
+	sb.setStdYear(rs.getInt(4));
+	sb.setStdAddress(rs.getString(5));
+	
+	students.add(sb);
 		}
 		rs.close();
 		stmt.close();

@@ -15,8 +15,8 @@
 	try{
 		Connection conn = DBCP.getConnection();
 		String sql = "insert into `register` (`regStdNo`, `stdName`, `lecName`)";
-			   sql += "values (?, ?, ?)";
-			   
+	   sql += "values (?, ?, ?)";
+	   
 		Statement stmt = conn.createStatement();		   
 		PreparedStatement psmt = conn.prepareStatement(sql);
 		psmt.setString(1, regStdNo);

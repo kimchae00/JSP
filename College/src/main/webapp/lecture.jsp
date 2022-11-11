@@ -13,7 +13,6 @@
 
 	try{
 		Connection conn = DBCP.getConnection();
-		
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT * FROM `lecture`");
 		
@@ -26,7 +25,7 @@
 			lb.setLecClass(rs.getString(5));
 			
 			lectures.add(lb);
-		}
+				}
 		
 		rs.close();
 		stmt.close();
