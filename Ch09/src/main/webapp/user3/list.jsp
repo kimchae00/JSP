@@ -4,12 +4,12 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>user1::list</title>
+		<title>user3::list</title>
 	</head>
 	<body>
-		<h3>user1 목록</h3>
+		<h3>user3 목록</h3>
 		<a href="/Ch09/index.jsp">처음으로</a>
-		<a href="/Ch09/user1/register.do">user1 등록하기</a>
+		<a href="/Ch09/user3/register.do">user3 등록하기</a>
 		<table border="1">
 			<tr>
 				<th>아이디</th>
@@ -25,8 +25,8 @@
 					<td>${user.hp}</td>
 					<td>${user.age}</td>
 					<td>
-						<a href="/Ch09/user1/modify.do?uid=${user.uid}">수정</a>
-						<a href="/Ch09/user1/delete.do?uid=${user.uid}">삭제</a>
+						<a href="/Ch09/user3/modify.do?uid=${user.uid}">수정</a>
+						<a href="/Ch09/user3/delete.do?uid=${user.uid}">삭제</a>
 					</td>
 				</tr>
 			</c:forEach>		

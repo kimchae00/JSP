@@ -11,6 +11,7 @@
 		 -->
 	</head>
 	<body>
+	<a href="/Ch09/index.jsp">처음으로</a>
 		<h3>1.MVC 모델</h3>
 		<h1>greeting</h1>
 		

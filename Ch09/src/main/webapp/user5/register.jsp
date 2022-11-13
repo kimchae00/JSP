@@ -3,14 +3,14 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>user1::register</title>
+		<title>user5::register</title>
 	</head>
 	<body>
-		<h3>user1 등록하기</h3>
+		<h3>user5 등록하기</h3>
 		<a href="/Ch09/index.jsp">처음으로</a>
-		<a href="/Ch09/user1/list.do">user1 목록</a>
+		<a href="/Ch09/user5/list.do">user5 목록</a>
 		
-		<form action="/Ch09/user1/register.do" method="post">
+		<form action="/Ch09/user5/register.do" method="post">
 			<table border="1">
 				<tr>
 					<td>아이디</td>
@@ -21,12 +21,24 @@
 					<td><input type="text" name="name" placeholder="이름 입력"/></td>
 				</tr>
 				<tr>
-					<td>휴대폰</td>
-					<td><input type="text" name="hp" placeholder="휴대폰 입력"/></td>
+					<td>생일</td>
+					<td><input type="date" name="birth" placeholder="생일 입력"/></td>
+				</tr>
+				<tr>
+					<td>성별</td>
+					<td><input type="number" name="gender" placeholder="성별 입력"/></td>
 				</tr>
 				<tr>
 					<td>나이</td>
 					<td><input type="number" name="age" placeholder="나이 입력"/></td>
+				</tr>
+				<tr>
+					<td>주소</td>
+					<td><input type="text" name="addr" placeholder="주소 입력"/></td>
+				</tr>
+				<tr>
+					<td>휴대폰</td>
+					<td><input type="text" name="hp" placeholder="휴대폰 입력"/></td>
 				</tr>
 				<tr>
 					<td colspan="2" align="right"></td>
