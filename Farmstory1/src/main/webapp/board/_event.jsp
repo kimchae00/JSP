@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	String cate = request.getParameter("cate");
+%>
 <div id="sub">
     <div><img src="/Farmstory1/img/sub_top_tit4.png" alt="EVENT"></div>
     <section class="cate4">
@@ -6,7 +9,7 @@
             <img src="/Farmstory1/img/sub_aside_cate4_tit.png" alt="이벤트"/>
 
             <ul class="lnb">
-                <li class="on"><a href="./list.jsp">이벤트</a></li>
+                <li class="on"><a href="./list.jsp?group=event&cate=event">이벤트</a></li>
             </ul>
 
         </aside>
