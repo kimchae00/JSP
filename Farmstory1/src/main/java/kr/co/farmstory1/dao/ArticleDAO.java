@@ -26,8 +26,7 @@ public class ArticleDAO {
 	
 	private ArticleDAO() {}
 
-	public int insertArticle(ArticleBean ab) {
-		
+	public int insertArticle(ArticleBean article) {
 		int parent = 0;
 		
 		try {
@@ -40,12 +39,12 @@ public class ArticleDAO {
 			Statement stmt = conn.createStatement();
 			PreparedStatement psmt = conn.prepareStatement(Sql.INSERT_ARTICLE);
 			
-			psmt.setString(1, ab.getCate());
-			psmt.setString(2, ab.getTitle());
-			psmt.setString(3, ab.getContent());
-			psmt.setInt(4, ab.getFname() == null ? 0 : 1);
-			psmt.setString(5, ab.getUid());
-			psmt.setString(6, ab.getRegip());
+			psmt.setString(1, article.getCate());
+			psmt.setString(2, article.getTitle());
+			psmt.setString(3, article.getContent());
+			psmt.setInt(4, article.getFname() == null ? 0 : 1);
+			psmt.setString(5, article.getUid());
+			psmt.setString(6, article.getRegip());
 			
 			psmt.executeUpdate();
 			ResultSet rs = stmt.executeQuery(Sql.SELECT_MAX_NO);
@@ -53,10 +52,15 @@ public class ArticleDAO {
 			// 작업 확정
 			conn.commit();
 			
+			if(rs.next()) {
+				parent = rs.getInt(1);
+			}
+			
 			rs.close();
 			stmt.close();
 			psmt.close();
 			conn.close();
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 			logger.error(e.getMessage());
@@ -81,6 +85,47 @@ public class ArticleDAO {
 			e.printStackTrace();
 			logger.error(e.getMessage());
 		}
+	}
+	
+	public ArticleBean insertComment(ArticleBean comment) {
+		
+		ArticleBean article = null;
+		
+		try {
+			Connection conn = DBCP.getConnection();
+			
+			conn.setAutoCommit(false);
+			
+			PreparedStatement psmt = conn.prepareStatement(Sql.INSERT_COMMENT);
+			Statement stmt = conn.createStatement();
+			
+			psmt.setInt(1, comment.getParent());
+			psmt.setString(2, comment.getContent());
+			psmt.setString(3, comment.getUid());
+			psmt.setString(4, comment.getRegip());
+			
+			psmt.executeUpdate();
+			ResultSet rs = stmt.executeQuery(Sql.SELECT_COMMENT_LATEST);
+			
+			conn.commit();
+			
+			if(rs.next()) {
+				article = new ArticleBean();
+				article.setNo(rs.getInt(1));
+				article.setParent(rs.getInt(2));
+				article.setContent(rs.getString(6));
+				article.setRdate(rs.getString(11).substring(2, 10));
+				article.setNick(rs.getString(12));
+			}
+			rs.close();
+			stmt.close();			
+			psmt.close();
+			conn.close();
+			
+		}catch(Exception e) {
+			logger.error(e.getMessage());
+		}
+		return article;
 	}
 	
 	public FileBean selectFile(String fno) {
@@ -190,6 +235,101 @@ public class ArticleDAO {
 		return articles;
 	}
 	
+	public List<ArticleBean> selectLatest() {
+		
+		List<ArticleBean> latests = new ArrayList<>();
+		
+		try {
+			logger.debug("selectlatest...");
+			Connection conn = DBCP.getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(Sql.SELECT_LATESTS);
+			
+			while(rs.next()) {
+				ArticleBean ab = new ArticleBean();
+				ab.setNo(rs.getInt(1));
+				ab.setTitle(rs.getString(2));
+				ab.setRdate(rs.getString(3).substring(2, 10));
+				
+				latests.add(ab);
+			}
+			
+			rs.close();
+			stmt.close();
+			conn.close();
+		}catch(Exception e) {
+			logger.error(e.getMessage());
+		}
+		logger.debug("latest size : "+ latests.size());
+		return latests;
+	}
+	
+	public List<ArticleBean> selectLatest(String cate) {
+		List<ArticleBean> latests = new ArrayList<>();
+		
+		try {
+			logger.debug("selectLatest(String)...");
+			Connection conn = DBCP.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_LATEST);
+			psmt.setString(1, cate);
+			ResultSet rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				ArticleBean ab = new ArticleBean();
+				ab.setNo(rs.getInt(1));
+				ab.setTitle(rs.getString(2));
+				ab.setRdate(rs.getString(3).substring(2, 10));
+				latests.add(ab);
+			}
+			rs.close();
+			psmt.close();
+			conn.close();
+		}catch(Exception e) {
+			logger.error(e.getMessage());
+		}
+		logger.debug("latest size : "+ latests.size());
+		return latests;
+	}
+	
+	public List<ArticleBean> selectComments(String parent) {
+		
+		List<ArticleBean> comments = new ArrayList<>();
+		
+		try {
+			Connection conn = DBCP.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_COMMENTS);
+			psmt.setString(1, parent);
+			
+			ResultSet rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				ArticleBean comment = new ArticleBean();
+				comment.setNo(rs.getInt(1));
+				comment.setParent(rs.getInt(2));
+				comment.setComment(rs.getInt(3));
+				comment.setCate(rs.getString(4));
+				comment.setTitle(rs.getString(5));
+				comment.setContent(rs.getString(6));
+				comment.setFile(rs.getInt(7));
+				comment.setHit(rs.getInt(8));
+				comment.setUid(rs.getString(9));
+				comment.setRegip(rs.getString(10));
+				comment.setRdate(rs.getString(11).substring(2, 10));
+				comment.setNick(rs.getString(12));
+				comments.add(comment);
+			}
+			
+			rs.close();
+			psmt.close();
+			conn.close();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return comments;
+	}
+	
 	public void updateArticle(String no, String title, String content) {
 		
 		try {
@@ -232,6 +372,27 @@ public class ArticleDAO {
 		}catch(Exception e){
 			 e.printStackTrace();
 		}
+	}
+	
+	public int updateComment(String no, String content) {
+		
+		int result = 0;
+		
+		try {
+			Connection conn = DBCP.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_COMMENT);
+			psmt.setString(1, content);
+			psmt.setString(2, no);
+			
+			result = psmt.executeUpdate();
+			psmt.close();
+			conn.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 	public void deleteArticle(String no) {
@@ -280,6 +441,25 @@ public class ArticleDAO {
 		}
 		
 		return newName;
+	}
+	
+	public int deleteComment(String no) {
+		int result = 0;
+		
+		try {
+			Connection conn = DBCP.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.DELETE_COMMENT);
+			psmt.setString(1, no);
+			
+			result = psmt.executeUpdate();
+			psmt.close();
+			conn.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 	public int selectCountTotal(String cate) {

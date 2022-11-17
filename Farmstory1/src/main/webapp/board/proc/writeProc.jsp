@@ -9,29 +9,29 @@
 <%
 	request.setCharacterEncoding("utf-8");
 	
-	//multipart 전송 데이터 수신
+	// multipart 전송 데이터 수신
 	String savePath = application.getRealPath("/file");
 	int maxSize = 1024 * 1024 * 10; // 최대 파일 업로드 허용량 10MB
 	MultipartRequest mr = new MultipartRequest(request, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
-
-	String group   = request.getParameter("group");
-	String cate    = request.getParameter("cate");
-	String title   = request.getParameter("title");
-	String content = request.getParameter("content");
-	String uid 	   = request.getParameter("uid");
-	String fname   = request.getParameter("fname");
+	
+	String group   = mr.getParameter("group");
+	String cate    = mr.getParameter("cate");
+	String uid     = mr.getParameter("uid");
+	String title   = mr.getParameter("title");
+	String content = mr.getParameter("content");	
+	String fname   = mr.getFilesystemName("fname");
 	String regip   = request.getRemoteAddr();
-
-	ArticleBean ab = new ArticleBean();
-	ab.setCate(cate);
-	ab.setTitle(title);
-	ab.setContent(content);
-	ab.setUid(uid);
-	ab.setFname(fname);
-	ab.setRegip(regip);
+	
+	ArticleBean article = new ArticleBean();
+	article.setCate(cate);
+	article.setTitle(title);
+	article.setContent(content);
+	article.setUid(uid);
+	article.setFname(fname);
+	article.setRegip(regip);
 	
 	ArticleDAO dao = ArticleDAO.getInstance();
-	int parent = dao.insertArticle(ab);
+	int parent = dao.insertArticle(article);
 	
 	// 파일을 첨부했으면 파일처리
 	if(fname != null){
@@ -51,6 +51,6 @@
 		// 파일 테이블 저장
 		dao.insertFile(parent, newName, fname);
 	}
-
+	
 	response.sendRedirect("/Farmstory1/board/list.jsp?group="+group+"&cate="+cate);
 %>
