@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.jboard2.dao.UserDAO;
+import kr.co.jboard2.vo.UserVO;
+
 @WebServlet("/user/login.do")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -23,6 +26,11 @@ public class LoginController extends HttpServlet {
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+		String uid = req.getParameter("uid");
+		String pass = req.getParameter("pass");
+		
+		UserVO vo = UserDAO.getInstance().selectUser();
 	}
 	
 }
