@@ -109,13 +109,16 @@ public class UserDAO extends DBHelper {
 		return result;
 	}
 	
-	public UserVO selectUser() {
+	public UserVO selectUser(String uid, String pass) {
 		
 		UserVO vo = null;
+		
 		try {
 			logger.info("selectUser...");
 			conn = getConnection();
 			psmt = conn.prepareStatement(Sql.SELECT_USER);
+			psmt.setString(1, uid);
+			psmt.setString(2, pass);
 			rs = psmt.executeQuery();
 			
 			if(rs.next()) {
@@ -138,6 +141,7 @@ public class UserDAO extends DBHelper {
 		}catch(Exception e) {
 			logger.error(e.getMessage());
 		}
+		logger.debug("vo : "+vo);
 		return vo;
 	}
 	
