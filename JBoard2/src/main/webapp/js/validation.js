@@ -14,6 +14,7 @@ let regPass  = /^.*(?=^.{5,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 // 폼 데이터 검증 결과 상태변수
 let isUidOk   = false;
 let isPassOk  = false;
+let isPassMatch = false;
 let isNameOk  = false;
 let isNickOk  = false;
 let isEmailOk = false;

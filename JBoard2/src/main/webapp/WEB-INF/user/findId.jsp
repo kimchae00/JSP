@@ -1,5 +1,52 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="./_header.jsp"/>
+<script src="/JBoard2/js/emailAuth.js"></script>
+<script>
+
+	$(function(){
+		
+		$('.btnNext').click(function(){
+			
+			console.log('here1 : ' + isEmailAuthOk);
+			
+			if(isEmailAuthOk){
+				console.log('here2');
+				let name = $('input[name=name]').val();
+				let email = $('input[name=email]').val();
+				
+				let jsonData = {
+						"name": name,
+						"email": email
+				};
+				
+				$.ajax({
+					url: '/JBoard2/user/findId.do',
+					type: 'post',
+					data: jsonData,
+					dataType: 'json',
+					success: function(data){
+						
+						if(data.result == 1){
+							// 일치 정보가 있음
+							location.href = "/JBoard2/user/findIdResult.do";
+						}else{
+							alert('해당하는 사용자가 존재하지 않습니다.\n이름과 이메일을 다시 확인하십시오.');							
+						}
+					}
+				});
+				
+				return false;
+				
+			}else{
+				alert('이메일 인증을 하셔야 합니다.');
+				console.log('here3');
+				return false;
+			}
+			
+		});
+	});
+
+</script>
 <main id="user">
     <section class="find findId">
         <form action="#">
@@ -14,11 +61,12 @@
                     <td>
                         <div>
                             <input type="email" name="email" placeholder="이메일 입력"/>
-                            <button type="button" class="btnAuth">인증번호 받기</button>
+                            <span class="resultEmail"></span>
+                            <button type="button" class="btnAuth" id="btnEmail">인증번호 받기</button>
                         </div>
-                        <div>
-                            <input type="text" name="auth" disabled placeholder="인증번호 입력"/>
-                            <button type="button" class="btnConfirm">확인</button>
+                        <div class="auth">
+                            <input type="text" name="auth" placeholder="인증번호 입력"/>
+                            <button type="button" class="btnConfirm" id="btnEmailConfirm">확인</button>
                         </div>
                     </td>
                 </tr>                        
@@ -31,8 +79,8 @@
         </p>
 
         <div>
-            <a href="./login.html" class="btn btnCancel">취소</a>
-            <a href="./findIdResult.html" class="btn btnNext">다음</a>
+            <a href="/JBoard2/user/login.do" class="btn btnCancel">취소</a>
+            <a href="/JBoard2/user/findIdResult.do" class="btn btnNext">다음</a>
         </div>
     </section>
 </main>
