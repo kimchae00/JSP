@@ -7,7 +7,7 @@
             <caption>글보기</caption>
             <tr>
                 <th>제목</th>
-                <td><input type="text" name="title" value="제목입니다." readonly/></td>
+                <td><input type="text" name="title" value="${vo.title}" readonly/></td>
             </tr>
             <tr>
                 <th>파일</th>
@@ -16,7 +16,7 @@
             <tr>
                 <th>내용</th>
                 <td>
-                    <textarea name="content" readonly>내용 샘플입니다.</textarea>
+                    <textarea name="content" readonly>${vo.content}</textarea>
                 </td>
             </tr>                    
         </table>

@@ -6,12 +6,16 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.jboard2.dao.ArticleDAO;
+import kr.co.jboard2.dao.UserDAO;
 import kr.co.jboard2.vo.ArticleVO;
+import kr.co.jboard2.vo.UserVO;
 
 @WebServlet("/list.do")
 public class ListController extends HttpServlet  {
@@ -23,14 +27,8 @@ public class ListController extends HttpServlet  {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/list.jsp");
-		dispatcher.forward(req, resp);
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	
-		String pg = req.getParameter("pg");
+		
+String pg = req.getParameter("pg");
 		
 		int start = 0;
 		int total = 0;
@@ -79,14 +77,20 @@ public class ListController extends HttpServlet  {
 		String hit = req.getParameter("hit");
 		
 		ArticleVO vo = new ArticleVO();
-		vo.setNo(no);
+		vo.setNo(pageStartNum);
 		vo.setTitle(title);
-		vo.setComment(comment);
+		vo.setComment(0);
 		vo.setNick(nick);
 		vo.setRdate(rdate);
-		vo.setHit(hit);
+		vo.setHit(0);
 		
 		req.setAttribute("vo", vo);
 		
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/list.jsp");
+		dispatcher.forward(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	}
 }

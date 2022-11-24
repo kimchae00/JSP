@@ -17,15 +17,13 @@
                 <th>날짜</th>
                 <th>조회</th>
             </tr>
-            <c:forEach var="vo" items="${vo}">
             <tr>
                 <td>${vo.no}</td>
-                <td><a href="/JBoard2/view.do?no=${vo.no}&pg=${vo.pg}">${vo.title}[${vo.comment}]"></a></td>
+                <td><a href="/JBoard2/view.do?no=${vo.no}">${vo.title}[${vo.comment}]</a></td>
                 <td>${vo.nick}</td>
                 <td>${vo.rdate}</td>
                 <td>${vo.hit}</td>
             </tr>
-            </c:forEach>
         </table>
 
         <div class="page">

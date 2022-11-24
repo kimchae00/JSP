@@ -92,7 +92,7 @@ public class ArticleDAO extends DBHelper {
 				vo.setCate(rs.getString(4));
 				vo.setTitle(rs.getString(5));
 				vo.setContent(rs.getString(6));
-				vo.setFile(rs.getInt(7));
+				vo.setFile(rs.getString(7));
 				vo.setHit(rs.getInt(8));
 				vo.setUid(rs.getString(9));
 				vo.setRegip(rs.getString(10));

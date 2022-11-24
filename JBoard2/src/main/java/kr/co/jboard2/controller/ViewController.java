@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.jboard2.vo.ArticleVO;
+
 @WebServlet("/view.do")
 public class ViewController extends HttpServlet {
 	
@@ -26,6 +28,18 @@ private static final long serialVersionUID = 1L;
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String no = req.getParameter("no");
+		String title = req.getParameter("title");
+		String content = req.getParameter("content");
+		
+		ArticleVO vo = new ArticleVO();
+		vo.setNo(no);
+		vo.setTitle(title);
+		vo.setContent(content);
+		
+		req.setAttribute("vo", vo);
+		
 	}
 
 }

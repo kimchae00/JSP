@@ -92,6 +92,9 @@ public class ArticleVO {
 	public void setFile(int file) {
 		this.file = file;
 	}
+	public void setFile(String file) {
+		this.file = Integer.parseInt(file);
+	}
 	public int getHit() {
 		return hit;
 	}
