@@ -28,7 +28,7 @@ public class ListController extends HttpServlet  {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-String pg = req.getParameter("pg");
+		String pg = req.getParameter("pg");
 		
 		int start = 0;
 		int total = 0;
@@ -77,9 +77,9 @@ String pg = req.getParameter("pg");
 		String hit = req.getParameter("hit");
 		
 		ArticleVO vo = new ArticleVO();
-		vo.setNo(pageStartNum);
+		vo.setNo(pageStartNum--);
 		vo.setTitle(title);
-		vo.setComment(0);
+		vo.setComment(comment);
 		vo.setNick(nick);
 		vo.setRdate(rdate);
 		vo.setHit(0);

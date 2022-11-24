@@ -50,14 +50,14 @@ public class ArticleVO {
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public void setNo(String no) {
-		this.no = Integer.parseInt(no);
-	}
 	public int getParent() {
 		return parent;
 	}
 	public void setParent(int parent) {
 		this.parent = parent;
+	}
+	public void setParent(String parent) {
+		this.parent = Integer.parseInt(parent);
 	}
 	public int getComment() {
 		return comment;
@@ -92,17 +92,11 @@ public class ArticleVO {
 	public void setFile(int file) {
 		this.file = file;
 	}
-	public void setFile(String file) {
-		this.file = Integer.parseInt(file);
-	}
 	public int getHit() {
 		return hit;
 	}
 	public void setHit(int hit) {
 		this.hit = hit;
-	}
-	public void setHit(String hit) {
-		this.hit = Integer.parseInt(hit);
 	}
 	public String getUid() {
 		return uid;
@@ -128,7 +122,4 @@ public class ArticleVO {
 	public void setNick(String nick) {
 		this.nick = nick;
 	}
-	
-	
-
 }

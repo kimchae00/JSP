@@ -71,7 +71,28 @@ public class ArticleDAO extends DBHelper {
 		}
 	}
 	
-	public void selectArticle() {}
+	public ArticleVO selectArticle(String no) {
+		
+		ArticleVO vo = null;
+		
+		try {
+			logger.info("selectArticle");
+			psmt = conn.prepareStatement(Sql.SELECT_ARTICLE);
+			psmt.setString(1, no);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				vo = new ArticleVO();
+				vo.setTitle(rs.getString(1));
+				vo.setContent(rs.getString(2));
+			}
+			close();
+			
+		}catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return vo;
+	}
 	
 	public List<ArticleVO> selectArticles(int start) {
 		
@@ -88,11 +109,11 @@ public class ArticleDAO extends DBHelper {
 				ArticleVO vo = new ArticleVO();
 				vo.setNo(rs.getInt(1));
 				vo.setParent(rs.getInt(2));
-				vo.setComment(rs.getInt(3));
+				vo.setComment(rs.getString(3));
 				vo.setCate(rs.getString(4));
 				vo.setTitle(rs.getString(5));
 				vo.setContent(rs.getString(6));
-				vo.setFile(rs.getString(7));
+				vo.setFile(rs.getInt(7));
 				vo.setHit(rs.getInt(8));
 				vo.setUid(rs.getString(9));
 				vo.setRegip(rs.getString(10));
@@ -130,6 +151,20 @@ public class ArticleDAO extends DBHelper {
 	}
 	
 	public void updateArticle() {}
+	
+	public void updateArticleHit(String no) {
+		
+		try {
+			logger.info("updateArticleHit");
+			conn = getConnection();
+			psmt = conn.prepareStatement(Sql.UPDATE_ARTICLE_HIT);
+			psmt.setString(1, no);
+			psmt.executeUpdate();
+			close();
+		}catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+	}
 	
 	public void deleteArticle() {}
 
