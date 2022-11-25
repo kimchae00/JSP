@@ -23,12 +23,6 @@ private static final long serialVersionUID = 1L;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view.jsp");
-		dispatcher.forward(req, resp);
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String no = req.getParameter("no");
 		String pg = req.getParameter("pg");
@@ -43,5 +37,11 @@ private static final long serialVersionUID = 1L;
 		ArticleVO vo = dao.selectArticle(no);
 		req.setAttribute("vo", vo);
 		
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view.jsp");
+		dispatcher.forward(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	}
 }

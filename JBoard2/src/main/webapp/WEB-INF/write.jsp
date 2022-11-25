@@ -5,7 +5,7 @@
 
         <form action="/JBoard2/write.do" method="post" enctype="multipart/form-data">
             <table border="0">
-            <input type="hidden" name="uid" value="${vo.uid}">
+            <input type="hidden" name="uid" value="${sessUser.uid}">
                 <caption>글쓰기</caption>
                 <tr>
                     <th>제목</th>
