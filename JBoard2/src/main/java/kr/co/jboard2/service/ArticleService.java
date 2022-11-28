@@ -1,12 +1,12 @@
 package kr.co.jboard2.service;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.oreilly.servlet.MultipartRequest;
@@ -19,11 +19,10 @@ public enum ArticleService {
 	
 	// 싱글톤(고급)
 	INSTANCE;
-	
 	private ArticleDAO dao = ArticleDAO.getInstance();
-	
-	public int insertArticle(ArticleVO vo) {
-		return dao.insertArticle(vo);
+
+	public int insertArticle(ArticleVO article) {
+		return dao.insertArticle(article);		
 	}
 	public void insertFile(int parent, String newName, String fname) {
 		dao.insertFile(parent, newName, fname);
@@ -33,6 +32,11 @@ public enum ArticleService {
 		return dao.selectCountTotal();
 	}
 	
+	public int selectCountTotalForSearch(String keyword) {
+		return dao.selectCountTotalForSearch(keyword);
+	}
+	
+	
 	public ArticleVO selectArticle(String no) {
 		return dao.selectArticle(no);
 	}
@@ -40,9 +44,11 @@ public enum ArticleService {
 		return dao.selectArticles(start);
 	}
 	
-	public void updateArticle() {
-		
+	public List<ArticleVO> selectArticleByKeyword(String keyword, int start) {
+		return dao.selectArticleByKeyword(keyword, start);
 	}
+	
+	public void updateArticle() {}
 	public void deleteArticle() {}
 	
 	public MultipartRequest uploadFile(HttpServletRequest req, String path) throws IOException {
@@ -57,7 +63,7 @@ public enum ArticleService {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss_");
 		String now = sdf.format(new Date());
-		String newName = now+vo.getUid()+ext; // 20221026111323_kcy013100.txt
+		String newName = now+vo.getUid()+ext; // 20221026111323_chhak0503.txt 
 		
 		File oriFile = new File(path+"/"+vo.getFname());
 		File newFile = new File(path+"/"+newName);
@@ -76,11 +82,11 @@ public enum ArticleService {
 		}else{
 			lastPageNum = total / 10 + 1;
 		}
+		
 		return lastPageNum;
 	}
 	
 	public int[] getPageGroupNum(int currentPage, int lastPageNum) {
-		
 		int currentPageGroup = (int)Math.ceil(currentPage / 10.0);
 		int pageGroupStart = (currentPageGroup - 1) * 10 + 1;
 		int pageGroupEnd = currentPageGroup * 10;
@@ -103,8 +109,9 @@ public enum ArticleService {
 		int currentPage = 1;
 		
 		if(pg != null){
-			currentPage = Integer.parseInt(pg);
+			currentPage = Integer.parseInt(pg);	
 		}
+		
 		return currentPage;
 	}
 	

@@ -51,6 +51,12 @@ public class Sql {
 	
 	public static final String SELECT_MAX_NO = "select max(`no`) from `board_article`";
 	public static final String SELECT_COUNT_TOTAL = "select count(`no`) from `board_article` where `parent`=0";
+	public static final String SELECT_COUNT_TOTAL_FOR_SEARCH = "SELECT COUNT(`no`) FROM `board_article` AS a "
+																+ "JOIN `board_user` AS b "
+																+ "ON a.uid = b.uid "
+																+ "WHERE `parent`=0 AND "
+																+ "(`title` LIKE ? OR "
+																+ "`nick` LIKE ?)";
 	
 	public static final String SELECT_ARTICLES = "SELECT a.*, b.`nick` FROM `board_article` AS a "
 												  + "JOIN `board_user` as b ON a.uid = b.uid "
@@ -63,6 +69,14 @@ public class Sql {
 													+ "LEFT JOIN `board_file` AS b "
 													+ "ON	a.`no` = b.`parent` "
 													+ "WHERE `no`=?";
+	
+	public static final String SELECT_ARTICLE_BY_KEYWORD = "SELECT a.*, b.nick FROM `board_article` AS a "
+													+"JOIN `board_user` AS b ON a.uid = b.uid "
+													+"WHERE `parent`=0 AND "
+													+"(`title` LIKE ? OR "
+													+"`nick` LIKE ?) "
+													+"order by `no` desc "
+													+"limit ?,10";
 	
 	public static final String SELECT_FILE = "SELECT * FROM `board_file` WHERE `fno`=?";
 	public static final String SELECT_FILE_WITH_PARENT = "SELECT * FROM `board_file` WHERE `parent`=?";

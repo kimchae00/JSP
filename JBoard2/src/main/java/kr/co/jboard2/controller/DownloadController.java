@@ -42,7 +42,7 @@ public class DownloadController extends HttpServlet{
 		ArticleDAO dao = ArticleDAO.getInstance();
 		
 		// 파일 가져오기
-		FileVO fv = dao.selectfile(fno);
+		FileVO fv = dao.selectFile(fno);
 		
 		// 파일 다운로드 카운트 + 1
 		dao.updateFileDownload(fno);
