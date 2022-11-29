@@ -24,7 +24,7 @@
             </nav>
 
             <!-- 내용 시작 -->
-            <img src="/Farmstory2/img/board_list.png" alt="">
+            <img src="../img/board_list.png" alt="">
 
             <!-- 내용 끝 -->
 

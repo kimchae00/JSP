@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/_header.jsp"/>
-<script src="/JBoard2/js/emailAuth.js"></script>
+<script src="/Farmstory2/js/emailAuth.js"></script>
 <script>
 	$(function(){
 		
@@ -19,7 +19,7 @@
 				};
 				
 				$.ajax({
-					url: '/JBoard2/user/findPw.do',
+					url: '/Farmstory2/user/findPw.do',
 					type: 'post',
 					data: jsonData,
 					dataType: 'json',
@@ -27,7 +27,7 @@
 						
 						if(data.result == 1){
 							// 일치 정보가 있음
-							location.href = "/JBoard2/user/findPwChange.do?uid="+uid;
+							location.href = "/Farmstory2/user/findPwChange.do?uid="+uid;
 						}else{
 							alert('해당하는 사용자가 존재하지 않습니다.\n아이디와 이메일을 다시 확인하십시오.');							
 						}
@@ -76,8 +76,8 @@
         </p>
 
         <div>
-            <a href="/JBoard2/user/login.do" class="btn btnCancel">취소</a>
-            <a href="/JBoard2/user/findPwChange.do" class="btn btnNext">다음</a>
+            <a href="/Farmstory2/user/login.do" class="btn btnCancel">취소</a>
+            <a href="/Farmstory2/user/findPwChange.do" class="btn btnNext">다음</a>
         </div>
     </section>
 </main>

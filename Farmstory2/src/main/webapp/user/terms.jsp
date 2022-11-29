@@ -40,8 +40,8 @@
         </table>
         
         <div>
-            <a href="/JBoard2/user/login.do" class="btn btnCancel">취소</a>
-            <a href="/JBoard2/user/register.do" class="btn btnNext">다음</a>
+            <a href="/Farmstory2/user/login.do" class="btn btnCancel">취소</a>
+            <a href="/Farmstory2/user/register.do" class="btn btnNext">다음</a>
         </div>
     </section>
 </main>
