@@ -1,6 +1,7 @@
 package kr.co.jboard2.controller.user;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
@@ -31,7 +32,7 @@ public class FindIdController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
-		String name = req.getParameter("name");
+		String name  = req.getParameter("name");
 		String email = req.getParameter("email");
 		
 		UserVO vo = UserDAO.getInstance().selectUserForFindId(name, email);
@@ -42,8 +43,8 @@ public class FindIdController extends HttpServlet {
 		if(vo != null) {
 			json.addProperty("result", 1);
 			
-			HttpSession sess = req.getSession();
-			sess.setAttribute("sessUserForFindId", vo);
+		    HttpSession sess = req.getSession();
+		    sess.setAttribute("sessUserForFindId", vo);
 			
 		}else {
 			json.addProperty("result", 0);

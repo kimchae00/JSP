@@ -1,22 +1,22 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="./_header.jsp"/>
+<jsp:include page="./_header.jsp" />
 <script src="/JBoard2/js/emailAuth.js"></script>
 <script>
 
 	$(function(){
 		
-		$('.btnNext').click(function(){
+			$('.btnNext').click(function(){
 			
 			console.log('here1 : ' + isEmailAuthOk);
 			
 			if(isEmailAuthOk){
 				console.log('here2');
-				let name = $('input[name=name]').val();
+				let name  = $('input[name=name]').val();
 				let email = $('input[name=email]').val();
 				
 				let jsonData = {
-						"name": name,
-						"email": email
+					"name": name,
+					"email": email
 				};
 				
 				$.ajax({
@@ -27,14 +27,12 @@
 					success: function(data){
 						
 						if(data.result == 1){
-							// 일치 정보가 있음
 							location.href = "/JBoard2/user/findIdResult.do";
 						}else{
-							alert('해당하는 사용자가 존재하지 않습니다.\n이름과 이메일을 다시 확인하십시오.');							
+							alert('해당하는 사용자가 존재하지 않습니다.\n이름과 이메일을 다시 확인하십시요.');
 						}
 					}
 				});
-				
 				return false;
 				
 			}else{
@@ -42,10 +40,8 @@
 				console.log('here3');
 				return false;
 			}
-			
 		});
 	});
-
 </script>
 <main id="user">
     <section class="find findId">
