@@ -132,11 +132,11 @@ public class ArticleDAO extends DBHelper {
 			ArticleVO article = null;
 			
 			try{
-				Connection conn = getConnection();
-				PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_ARTICLE);
+				conn = getConnection();
+				psmt = conn.prepareStatement(Sql.SELECT_ARTICLE);
 				psmt.setString(1, no);
 				
-				ResultSet rs = psmt.executeQuery();
+				rs = psmt.executeQuery();
 				
 				if(rs.next()){
 					article = new ArticleVO();
@@ -197,7 +197,7 @@ public class ArticleDAO extends DBHelper {
 				}
 				close();
 			}catch(Exception e){
-				e.printStackTrace();
+				logger.error(e.getMessage());
 			}
 			
 			return articles;
@@ -314,15 +314,14 @@ public class ArticleDAO extends DBHelper {
 		public void updateArticle(String no, String title, String content) {
 			
 			try {
-				Connection conn = getConnection();
-				PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_ARTICLE);
+				conn = getConnection();
+				psmt = conn.prepareStatement(Sql.UPDATE_ARTICLE);
 				psmt.setString(1, title);
 				psmt.setString(2, content);
 				psmt.setString(3, no);
 				
 				psmt.executeUpdate();
-				psmt.close();
-				conn.close();
+				close();
 			}catch (Exception e) {
 				e.printStackTrace();
 			}

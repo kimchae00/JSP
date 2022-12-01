@@ -21,7 +21,7 @@
             <c:forEach var="article" items="${articles}">
             <tr>
                 <td>${pageStartNum = pageStartNum - 1}</td>
-                <td><a href="/Farmstory2/view.do?no=${article.no}">${article.title}[${article.comment}]</a></td>
+                <td><a href="/Farmstory2/board/view.do?group=${group}&cate=${cate}&no=${article.no}&pg=${currentPage}">${article.title}[${article.comment}]</a></td>
                 <td>${article.nick}</td>
                 <td>${article.rdate}</td>
                 <td>${article.hit}</td>
@@ -31,17 +31,17 @@
 
         <div class="page">
         	<c:if test="${pageGroupStart > 1}">
-            <a href="/Farmstory2/list.do?pg=${pageGroupStart - 1}&search=${search}" class="prev">이전</a>
+            <a href="/Farmstory2/board/list.do?group=${group}&cate=${cate}&pg=${pageGroupStart - 1}&search=${search}" class="prev">이전</a>
             </c:if>
             <c:forEach var="num" begin="${pageGroupStart}" end="${pageGroupEnd}">
-            <a href="/Farmstory2/list.do?pg=${num}&search=${search}" class="num ${num == currentPage ? 'current':'off'}">${num}</a>
+            <a href="/Farmstory2/board/list.do?group=${group}&cate=${cate}&pg=${num}&search=${search}" class="num ${num == currentPage ? 'current':'off'}">${num}</a>
             </c:forEach>
             <c:if test="${pageGroupEnd < lastPageNum}">
-            <a href="/Farmstory2/list.do?pg=${pageGroupEnd + 1}&search=${search}" class="next">다음</a>
+            <a href="/Farmstory2/board/list.do?group=${group}&cate=${cate}&pg=${pageGroupEnd + 1}&search=${search}" class="next">다음</a>
             </c:if>
         </div>
 
-        <a href="./write.do?group=${group}&cate=${cate}" class="btn btnWrite">글쓰기</a>
+        <a href="/Farmstory2/board/write.do?group=${group}&cate=${cate}" class="btn btnWrite">글쓰기</a>
         
     </section>
 </main>

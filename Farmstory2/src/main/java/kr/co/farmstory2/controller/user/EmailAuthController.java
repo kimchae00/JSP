@@ -39,7 +39,7 @@ public class EmailAuthController extends HttpServlet {
 		String sender = "xhaezer0@gmail.com";
 		String password = "ytnlstneolvxstyh";
 		
-		String title = "JBoard2 인증코드 입니다.";
+		String title = "Farmstory2 인증코드 입니다.";
 		String content = "인증코드 6자리는 "+code+" 입니다.";
 
 		// Gmail SMTP 정보 설정

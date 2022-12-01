@@ -23,11 +23,17 @@ public class ModifyController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
+		String group = req.getParameter("group");
+		String cate = req.getParameter("cate");
 		String no = req.getParameter("no");
 		String pg = req.getParameter("pg");
 
 		ArticleVO vo = ArticleDAO.getInstance().selectArticle(no);
 		req.setAttribute("vo", vo);
+		req.setAttribute("group", group);
+		req.setAttribute("cate", cate);
+		req.setAttribute("no", no);
+		req.setAttribute("pg", pg);
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/board/modify.jsp");
 		dispatcher.forward(req, resp);
@@ -35,13 +41,15 @@ public class ModifyController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
-		String no = req.getParameter("no");
+		String group = req.getParameter("group");
+		String cate = req.getParameter("cate");
 		String pg = req.getParameter("pg");
+		String no = req.getParameter("no");
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
 		
-		ArticleDAO.getInstance().updateArticle(title, content, no);
+		ArticleDAO.getInstance().updateArticle(no, title, content);
 		 
-		resp.sendRedirect("/Farmstory2/board/view.do?no="+no+"&pg="+pg);
+		resp.sendRedirect("/Farmstory2/board/view.do?group="+group+"&cate="+cate+"&no="+no+"&pg="+pg);
 	}
 }

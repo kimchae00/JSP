@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.co.farmstory2.service.ArticleService;
 import kr.co.farmstory2.vo.ArticleVO;
 
-@WebServlet("/board/list.do?group=${group}&cate=${cate}")
+@WebServlet("/board/list.do")
 public class ListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleService service = ArticleService.INSTANCE;
@@ -58,6 +58,7 @@ public class ListController extends HttpServlet {
 		req.setAttribute("pageStartNum", pageStartNum+1);
 		req.setAttribute("search", search);
 		req.setAttribute("group", group);
+		req.setAttribute("cate", cate);
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/board/list.jsp");
 		dispatcher.forward(req, resp);	
@@ -65,6 +66,4 @@ public class ListController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	}
-	
-
 }
