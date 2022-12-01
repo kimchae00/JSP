@@ -61,6 +61,5 @@ public class LoginController extends HttpServlet {
 			// 회원 아님
 			resp.sendRedirect("/Farmstory2/user/login.do?success=100");
 		}
-		
 	}
 }

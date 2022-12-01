@@ -61,9 +61,11 @@ public class ListController extends HttpServlet {
 		req.setAttribute("cate", cate);
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/board/list.jsp");
-		dispatcher.forward(req, resp);	
+		dispatcher.forward(req, resp);
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+	
 	}
 }

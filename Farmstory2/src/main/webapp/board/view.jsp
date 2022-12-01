@@ -14,7 +14,7 @@
             <c:if test="${article.file > 0}">
             <tr>
                 <th>파일</th>
-                <td><a href="#">${article.oriName}</a>&nbsp;<span>${article.download}</span>회 다운로드</td>
+                <td><a href="/Farmstory2/board/download.do?fno=${article.fno}">${article.oriName}</a>&nbsp;<span>${article.download}</span>회 다운로드</td>
             </tr>
             </c:if>
             <tr>
@@ -26,8 +26,10 @@
         </table>
         
         <div>
+        	<c:if test="${sessUser.getUid().equals(article.getUid())}">
             <a href="#" class="btn btnRemove">삭제</a>
             <a href="./modify.do?group=${group}&cate=${cate}&no=${article.no}&pg=${pg}" class="btn btnModify">수정</a>
+            </c:if>
             <a href="/Farmstory2/board/list.do?group=${group}&cate=${cate}" class="btn btnList">목록</a>
         </div>
 

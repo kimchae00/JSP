@@ -34,7 +34,6 @@ public enum ArticleService {
 			return dao.selectCountTotalForSearch(keyword);
 		}
 		
-		
 		public ArticleVO selectArticle(String no) {
 			return dao.selectArticle(no);
 		}

@@ -24,8 +24,15 @@
 
             $('#tabs').tabs();
         });
+        
+		let success = "${success}";
+        
+        if(success == '100'){
+        	alert('일치하는 회원이 없습니다.\n아이디, 비밀번호를 다시 확인 하시기 바랍니다.');
+        }else if(success == '101'){
+        	alert('먼저 로그인을 하세요.');
+        }
     </script>
-
 </head>
 <body>
     <div id="wrapper">
@@ -39,6 +46,7 @@
                 <a href="/Farmstory2/user/terms.do">회원가입 |</a>
                 </c:when>
                 <c:otherwise>
+                <span>${sessUser.nick}님 |</span>
                 <a href="/Farmstory2/user/logout.do">로그아웃 |</a>
                 </c:otherwise>
                 </c:choose>

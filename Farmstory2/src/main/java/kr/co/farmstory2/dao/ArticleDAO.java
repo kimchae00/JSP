@@ -40,11 +40,12 @@ public class ArticleDAO extends DBHelper {
 				stmt = conn.createStatement();
 				psmt = conn.prepareStatement(Sql.INSERT_ARTICLE);
 				
-				psmt.setString(1, article.getTitle());
-				psmt.setString(2, article.getContent());
-				psmt.setInt(3, article.getFname() == null ? 0 : 1);
-				psmt.setString(4, article.getUid());
-				psmt.setString(5, article.getRegip());
+				psmt.setString(1, article.getCate());
+				psmt.setString(2, article.getTitle());
+				psmt.setString(3, article.getContent());
+				psmt.setInt(4, article.getFname() == null ? 0 : 1);
+				psmt.setString(5, article.getUid());
+				psmt.setString(6, article.getRegip());
 				
 				psmt.executeUpdate(); // INSERT
 				rs = stmt.executeQuery(Sql.SELECT_MAX_NO); // SELECT
@@ -60,7 +61,6 @@ public class ArticleDAO extends DBHelper {
 			}catch(Exception e){
 				logger.error(e.getMessage());
 			}
-			
 			return parent;
 		}
 		
@@ -156,9 +156,7 @@ public class ArticleDAO extends DBHelper {
 					article.setDownload(rs.getInt(14));
 				}
 				
-				rs.close();
-				psmt.close();
-				conn.close();
+				close();
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -168,14 +166,13 @@ public class ArticleDAO extends DBHelper {
 		
 		public List<ArticleVO> selectArticles(String cate, int start) {
 			
-			List<ArticleVO> articles = new ArrayList<>();	
+			List<ArticleVO> articles = new ArrayList<>();
 			
 			try{
 				conn = getConnection();
 				psmt = conn.prepareStatement(Sql.SELECT_ARTICLES);
 				psmt.setString(1, cate);
 				psmt.setInt(2, start);
-				
 				rs = psmt.executeQuery();
 				
 				while(rs.next()){
