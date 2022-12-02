@@ -27,7 +27,7 @@
         
         <div>
         	<c:if test="${sessUser.getUid().equals(article.getUid())}">
-            <a href="#" class="btn btnRemove">삭제</a>
+            <a href="./delete.do?group=${group}&cate=${cate}&no=${article.no}" class="btn btnRemove">삭제</a>
             <a href="./modify.do?group=${group}&cate=${cate}&no=${article.no}&pg=${pg}" class="btn btnModify">수정</a>
             </c:if>
             <a href="/Farmstory2/board/list.do?group=${group}&cate=${cate}" class="btn btnList">목록</a>
@@ -40,7 +40,7 @@
             <article>
                 <span class="nick">길동이</span>
                 <span class="date">20-05-20</span>
-                <p class="content">댓글 샘플 입니다.</p>                        
+                <p class="content">댓글 샘플 입니다.</p>                  
                 <div>
                     <a href="#" class="remove">삭제</a>
                     <a href="#" class="modify">수정</a>

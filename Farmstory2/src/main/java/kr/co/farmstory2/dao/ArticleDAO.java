@@ -200,7 +200,7 @@ public class ArticleDAO extends DBHelper {
 			return articles;
 		}
 		
-		public List<ArticleVO> selectArticleByKeyword(String keyword, int start) {
+		public List<ArticleVO> selectArticleByKeyword(String keyword, int start, String cate) {
 			
 			List<ArticleVO> articles = new ArrayList<>(); 
 			
@@ -211,7 +211,8 @@ public class ArticleDAO extends DBHelper {
 				psmt = conn.prepareStatement(Sql.SELECT_ARTICLE_BY_KEYWORD);
 				psmt.setString(1, "%"+keyword+"%");
 				psmt.setString(2, "%"+keyword+"%");
-				psmt.setInt(3, start);
+				psmt.setString(3, cate);
+				psmt.setInt(4, start);
 				rs = psmt.executeQuery();
 				
 				while(rs.next()){
@@ -269,6 +270,59 @@ public class ArticleDAO extends DBHelper {
 			return fb;
 		}
 		
+		public List<ArticleVO> selectLatest() {
+			
+			List<ArticleVO> latests = new ArrayList<>();
+			
+			try {
+				logger.debug("selectlatest...");
+				conn = getConnection();
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery(Sql.SELECT_LATESTS);
+				
+				while(rs.next()) {
+					ArticleVO ab = new ArticleVO();
+					ab.setNo(rs.getInt(1));
+					ab.setTitle(rs.getString(2));
+					ab.setRdate(rs.getString(3).substring(2, 10));
+					
+					latests.add(ab);
+				}
+				
+				close();
+			}catch(Exception e) {
+				logger.error(e.getMessage());
+			}
+			logger.debug("latest size : "+ latests.size());
+			return latests;
+		}
+		
+		public List<ArticleVO> selectLatest(String cate) {
+			List<ArticleVO> latest = new ArrayList<>();
+			
+			try {
+				logger.debug("selectLatest(String)...");
+				conn = getConnection();
+				psmt = conn.prepareStatement(Sql.SELECT_LATEST);
+				psmt.setString(1, cate);
+				rs = psmt.executeQuery();
+				
+				while(rs.next()) {
+					ArticleVO ab = new ArticleVO();
+					ab.setNo(rs.getInt(1));
+					ab.setTitle(rs.getString(2));
+					ab.setRdate(rs.getString(3).substring(2, 10));
+					latest.add(ab);
+				}
+				close();
+			}catch(Exception e) {
+				logger.error(e.getMessage());
+			}
+			logger.debug("latest size : "+ latest.size());
+			return latest;
+		}
+		
+		
 		public List<ArticleVO> selectComments(String parent) {
 			
 			List<ArticleVO> comments = new ArrayList<>();
@@ -325,16 +379,15 @@ public class ArticleDAO extends DBHelper {
 		}
 		public void deleteArticle(String no) {
 			try {
-				Connection conn = getConnection();
-				PreparedStatement psmt = conn.prepareStatement(Sql.DELETE_ARTICLE);
+				conn = getConnection();
+				psmt = conn.prepareStatement(Sql.DELETE_ARTICLE);
 				psmt.setString(1, no);
 				psmt.setString(2, no);
 				
 				psmt.executeUpdate();
-				psmt.close();
-				conn.close();
+				close();
 			}catch (Exception e) {
-				e.printStackTrace();
+				logger.error(e.getMessage());
 			}
 		}
 		

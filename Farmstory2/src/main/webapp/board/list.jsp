@@ -4,11 +4,10 @@
 <jsp:include page="./_${group}.jsp"/>
 <main id="board">
     <section class="list">                
-        <form action="/Farmstory2/list.do">
+        <form action="/Farmstory2/board/list.do">
             <input type="text" name="search" placeholder="제목 키워드, 글쓴이 검색">
             <input type="submit" value="검색">
         </form>
-        
         <table border="0">
             <caption>글목록</caption>
             <tr>
@@ -34,7 +33,12 @@
             <a href="/Farmstory2/board/list.do?group=${group}&cate=${cate}&pg=${pageGroupStart - 1}&search=${search}" class="prev">이전</a>
             </c:if>
             <c:forEach var="num" begin="${pageGroupStart}" end="${pageGroupEnd}">
+            <c:if test="${search != null}">
             <a href="/Farmstory2/board/list.do?group=${group}&cate=${cate}&pg=${num}&search=${search}" class="num ${num == currentPage ? 'current':'off'}">${num}</a>
+            </c:if>
+            <c:if test="${search == null}">
+            <a href="/Farmstory2/board/list.do?group=${group}&cate=${cate}&pg=${num}" class="num ${num == currentPage ? 'current':'off'}">${num}</a>
+            </c:if>
             </c:forEach>
             <c:if test="${pageGroupEnd < lastPageNum}">
             <a href="/Farmstory2/board/list.do?group=${group}&cate=${cate}&pg=${pageGroupEnd + 1}&search=${search}" class="next">다음</a>
@@ -42,7 +46,6 @@
         </div>
 
         <a href="/Farmstory2/board/write.do?group=${group}&cate=${cate}" class="btn btnWrite">글쓰기</a>
-        
     </section>
 </main>
 </article>

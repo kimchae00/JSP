@@ -47,8 +47,9 @@ public class ListController extends HttpServlet {
 		if(search == null) {
 			articles = service.selectArticles(cate, start);
 		}else {
-			articles = service.selectArticleByKeyword(search, start);
+			articles = service.selectArticleByKeyword(search, start, cate);
 		}
+		
 		
 		req.setAttribute("articles", articles);
 		req.setAttribute("lastPageNum", lastPageNum);		
@@ -65,7 +66,7 @@ public class ListController extends HttpServlet {
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String search = req.getParameter("search");
 		
-	
 	}
 }
