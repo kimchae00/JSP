@@ -1,6 +1,7 @@
 package kr.co.farmstory2.controller.user;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -59,7 +60,10 @@ public class LoginController extends HttpServlet {
 			
 		}else {
 			// 회원 아님
-			resp.sendRedirect("/Farmstory2/user/login.do?success=100");
+			resp.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = resp.getWriter();
+		    out.println("<script>alert('일치하는 회원이 없습니다.\\n아이디, 비밀번호를 다시 확인 하시기 바랍니다.'); location.href='/Farmstory2/user/login.do?success=100' </script>");
+		    out.flush();
 		}
 	}
 }

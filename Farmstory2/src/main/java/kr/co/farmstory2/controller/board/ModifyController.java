@@ -1,7 +1,7 @@
 package kr.co.farmstory2.controller.board;
 
 import java.io.IOException;
-
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,7 +29,10 @@ public class ModifyController extends HttpServlet {
 		UserVO sessUser = (UserVO) session.getAttribute("sessUser");
 		
 		if(sessUser == null){
-			resp.sendRedirect("/Farmstory2/user/login.do?success=101");
+			resp.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = resp.getWriter();
+		    out.println("<script>alert('먼저 로그인을 하세요.'); location.href='/Farmstory2/user/login.do?success=101' </script>");
+		    out.flush();
 			return;
 		}
 		
