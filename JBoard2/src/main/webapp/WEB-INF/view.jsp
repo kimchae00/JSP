@@ -5,6 +5,7 @@
     <section class="view">
         
         <table border="0">
+        <input type="hidden" name="pg" value="${pg}">
             <caption>글보기</caption>
             <tr>
                 <th>제목</th>
@@ -25,8 +26,8 @@
         </table>
         
         <div>
-            <a href="./delete.do" class="btn btnRemove">삭제</a>
-            <a href="./modify.do?no=${vo.no}" class="btn btnModify">수정</a>
+            <a href="/JBoard2/delete.do?no=${vo.no}&pg=${pg}" class="btn btnRemove">삭제</a>
+            <a href="/JBoard2/modify.do?no=${vo.no}&pg=${pg}" class="btn btnModify">수정</a>
             <a href="./list.do" class="btn btnList">목록</a>
         </div>
 

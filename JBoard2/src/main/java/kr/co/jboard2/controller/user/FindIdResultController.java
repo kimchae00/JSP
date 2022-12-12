@@ -11,18 +11,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import kr.co.jboard2.vo.UserVO;
 
 @WebServlet("/user/findIdResult.do")
 public class FindIdResultController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Override
 	public void init() throws ServletException {
 	}
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		HttpSession sess = req.getSession();
+		UserVO vo = (UserVO) sess.getAttribute("sessUserForFindId");
+		
+		
+		logger.debug("here vo : " + vo);
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/user/findIdResult.jsp");
 		dispatcher.forward(req, resp);

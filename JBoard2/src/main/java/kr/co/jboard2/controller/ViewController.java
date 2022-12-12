@@ -36,6 +36,8 @@ private static final long serialVersionUID = 1L;
 		// 글 가져오기
 		ArticleVO vo = dao.selectArticle(no);
 		req.setAttribute("vo", vo);
+		req.setAttribute("no", no);
+		req.setAttribute("pg", pg);
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view.jsp");
 		dispatcher.forward(req, resp);

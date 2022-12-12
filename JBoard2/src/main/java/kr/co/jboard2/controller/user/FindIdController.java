@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.JsonObject;
 
 import kr.co.jboard2.dao.UserDAO;
@@ -20,7 +23,8 @@ import kr.co.jboard2.vo.UserVO;
 @WebServlet("/user/findId.do")
 public class FindIdController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Override
 	public void init() throws ServletException {
 	}
@@ -35,21 +39,30 @@ public class FindIdController extends HttpServlet {
 		String name  = req.getParameter("name");
 		String email = req.getParameter("email");
 		
+		logger.debug("name : " + name);
+		logger.debug("email : " + email);
+		
 		UserVO vo = UserDAO.getInstance().selectUserForFindId(name, email);
+		
+		logger.debug("vo : " + vo);
 		
 		// JSON 출력
 		JsonObject json = new JsonObject();
 		
 		if(vo != null) {
+			
+			logger.debug("here1");
 			json.addProperty("result", 1);
 			
 		    HttpSession sess = req.getSession();
 		    sess.setAttribute("sessUserForFindId", vo);
 			
 		}else {
+			logger.debug("here2");
 			json.addProperty("result", 0);
 		}
 		
+		logger.debug("here3");
 		PrintWriter writer = resp.getWriter();
 		writer.print(json.toString());
 	}

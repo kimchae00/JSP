@@ -19,7 +19,7 @@
             <c:forEach var="article" items="${articles}">
             <tr>
                 <td>${pageStartNum = pageStartNum - 1}</td>
-                <td><a href="/JBoard2/view.do?no=${article.no}">${article.title}[${article.comment}]</a></td>
+                <td><a href="/JBoard2/view.do?no=${article.no}&pg=${currentPage}&search=${search}">${article.title}[${article.comment}]</a></td>
                 <td>${article.nick}</td>
                 <td>${article.rdate}</td>
                 <td>${article.hit}</td>

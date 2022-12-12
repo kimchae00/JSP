@@ -5,7 +5,7 @@
 
 	$(function(){
 		
-			$('.btnNext').click(function(){
+		$('.btnNext').click(function(){
 			
 			console.log('here1 : ' + isEmailAuthOk);
 			
